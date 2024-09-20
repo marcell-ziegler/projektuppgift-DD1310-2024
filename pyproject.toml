@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "biljettbokning"
+version = "0.1.0"
+description = "Biljettbokningssystem. Projektuppgift 127, DD1310"
+authors = ["Marcell Ziegler <marcell.ziegler.22@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+customtkinter = "^5.2.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
