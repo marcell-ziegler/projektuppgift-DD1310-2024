@@ -4,7 +4,11 @@ version = "0.1.0"
 description = "Biljettbokningssystem för uppg. 127, DD1310"
 authors = [{ name = "Marcell Ziegler", email = "marcellz@kth.se" }]
 dependencies = ["customtkinter"]
+
 requires-python = ">=3.10"
+
+[project.optional-dependencies]
+test = ["pytest"]
 
 [build-system]
 requires = ["setuptools"]
