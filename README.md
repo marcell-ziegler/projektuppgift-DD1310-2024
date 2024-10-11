@@ -13,7 +13,7 @@ Jag har valt uppgiften [127 Platsbokning på SJ](https://people.kth.se/~dbosk/pr
 
 För ett stolsnummer $n$, i en vagn med $n_l$ stolar till vänster om gånger och $n_r$ stolar till höger, låt
 $$\left\{\begin{array}{l}b_r = n_l + n_r \\ r = \left\lceil n / b_r \right\rceil \\ i = n - b_r \cdot (r - 1) \end{array}\right.$$
-där $r$ är stolens radnummer och $i$ är stolens index i raden. Detta innebär att man kommer åt stol nr $n$ med uttrycket `Carriage.seats[r - 1][0][i - 1]` om den befinner sig på vänster sida om gånger, dvs $i < n_l$ annars med uttrycker `Carriage.seats[r - 1][1][i - 1 - n_l]`.
+där $r$ är stolens radnummer och $i$ är stolens index i raden. Detta innebär att man kommer åt stol nr $n$ med uttrycket `Carriage.seats[r - 1][0][i - 1]` om den befinner sig på vänster sida om gånger, dvs $i \leq n_l$ annars med uttrycker `Carriage.seats[r - 1][1][i - 1 - n_l]`.
 
 # Datastrukturer
 

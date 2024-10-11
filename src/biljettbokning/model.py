@@ -76,7 +76,7 @@ class Carriage:
         row_index = seat_num - row_width * (row - 1)
 
         # Check is seat is on left side
-        if row_index < self.left_seats:
+        if row_index <= self.left_seats:
             return self.seats[row - 1][0][row_index - 1]
 
         # Seat is on the right side, index subtracts left seats to fit within
