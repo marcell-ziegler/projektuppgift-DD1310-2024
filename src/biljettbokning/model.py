@@ -122,7 +122,7 @@ class Carriage:
         return f"Carriage: {self.seating_configuration} with {self.num_rows} rows"
 
 
-if __name__ == "__main__":
-    c = Carriage("1+3", 10, 1)
-    c.get_seat_num(6).passenger_name = "John Doe"
-    print(c.get_seat_name("John Doe"))
+class Train:
+    def __init__(self, name: str, carriages: Optional[list[Carriage]] = None):
+        self.name = name
+        self.carriages = carriages if carriages is not None else []
