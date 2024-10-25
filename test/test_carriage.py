@@ -5,11 +5,13 @@ import pytest
 
 class TestCarriage:
     def test_create_carriage(self):
+        # pylint: disable=protected-access
         carriage = Carriage("2+2", 5, 10)
         assert carriage.number == 10
         assert carriage.num_rows == 5
-        assert carriage.left_seats == 2
-        assert carriage.right_seats == 2
+        assert carriage.num_left_seats == 2
+        assert carriage.num_right_seats == 2
+        assert len(carriage._flat_seats) == (2 + 2) * 5
         assert (
             len(list(itertools.chain(*itertools.chain(*carriage.seats)))) == (2 + 2) * 5
         )
