@@ -56,6 +56,10 @@ class TestCarriage:
             assert carriage.get_seat_num(i * (1 + 3) + 3) is carriage.seats[i][1][1]
             assert carriage.get_seat_num(i * (1 + 3) + 4) is carriage.seats[i][1][2]
 
+        for i in [200, 0, -1, -300, -20]:
+            with pytest.raises(IndexError):
+                carriage.get_seat_num(i)
+
     def test_booking(self):
         carriage = Carriage("2+2", 5, 10)
 
