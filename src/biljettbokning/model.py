@@ -3,6 +3,7 @@
 import itertools
 import re
 import math
+from typing import Optional
 
 
 class Seat:
@@ -71,6 +72,9 @@ class Carriage:
 
     def get_seat_num(self, seat_num: int) -> Seat:
         """Return the seat object for the given seat number in the carriage"""
+        if seat_num < 1 or seat_num > len(self._flat_seats):
+            raise IndexError(f"Invalid seat number {seat_num}")
+
         # Total row width
         row_width = self.num_left_seats + self.num_right_seats
 
@@ -87,6 +91,7 @@ class Carriage:
 
         # Seat is on the right side, index subtracts left seats to fit within
         # the right side tuple
+
         return self.seats[row - 1][1][row_index - 1 - self.num_left_seats]
 
     def get_seat_name(self, passenger_name: str) -> Seat:
@@ -117,6 +122,28 @@ class Carriage:
             raise ValueError(f"Multiple seats found for passenger {passenger_name}")
 
         return matches[0]
+
+    def book_passenger(self, name: str, seat_num: int) -> None:
+        """Books a passenger into the specified seat number.
+
+        Args:
+            name (str): The name of the passenger
+            seat_num (int): The seat number to book the passenger into
+
+        Raises:
+            ValueError: If the seat number is invalid
+            ValueError: If the seat is already booked
+        """
+
+        try:
+            seat = self.get_seat_num(seat_num)
+        except IndexError as e:
+            raise ValueError(f"Invalid seat number {seat_num}") from e
+
+        if seat.passenger_name:
+            raise ValueError(f"Seat {seat_num} is already booked")
+
+        seat.passenger_name = name
 
     def __str__(self):
         return f"Carriage: {self.seating_configuration} with {self.num_rows} rows"
