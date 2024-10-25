@@ -45,9 +45,6 @@ class Carriage:
                 right.append(Seat(seat_num))
             self.seats.append((left, right))
 
-        # Flatten the list of seats (privately)
-        self._flat_seats = list(itertools.chain(*itertools.chain(*self.seats)))
-
     @property
     def seating_configuration(self) -> str:
         """Seating configuration in the format 'x+y' where 0 <= x,y <= 9 for x,y: int"""
@@ -66,6 +63,11 @@ class Carriage:
             )
 
         self._seating_configuration = value
+
+    @property
+    def _flat_seats(self) -> list[Seat]:
+        """Return a flat list of all seats in the carriage"""
+        return list(itertools.chain(*itertools.chain(*self.seats)))
 
     def get_seat_num(self, seat_num: int) -> Seat:
         """Return the seat object for the given seat number in the carriage"""
