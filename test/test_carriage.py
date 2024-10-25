@@ -1,6 +1,6 @@
 import itertools
-from biljettbokning.model import Carriage
 import pytest
+from biljettbokning.model import Carriage
 
 
 class TestCarriage:
