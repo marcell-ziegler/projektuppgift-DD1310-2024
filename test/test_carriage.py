@@ -82,3 +82,17 @@ class TestCarriage:
         for i in [200, 0, -1, -300, -20]:
             with pytest.raises(ValueError):
                 carriage.book_passenger("John Doe", i)
+
+    def test_name_search(self):
+        carriage = Carriage("2+2", 5, 10)
+        letters = "abcdfghijklmnopqrstu"
+
+        nums = list(range(1, 21))
+
+        for letter, num in zip(list(letters), list(nums)):
+            seat = carriage.get_seat_num(num)
+            seat.passenger_name = letter
+
+        for letter in letters:
+            seat = carriage.get_seat_name(letter)
+            assert seat.passenger_name == letter
