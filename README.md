@@ -67,7 +67,9 @@ Lagrar en vagn, dess stolar och alla passagerare.
 - `get_seat_num(number: int) -> Seat` - returnerar en specifik stol baserat på nummer. Ger `IndexError` om angivet stolsnummer inte finns i vagnen.
 
     För ett stolsnummer $n$, i en vagn med $n_l$ stolar till vänster om gånger och $n_r$ stolar till höger, låt
-    $$\left\{\begin{array}{l}b_r = n_l + n_r \\ r = \left\lceil n / b_r \right\rceil \\ i = n - b_r \cdot (r - 1) \end{array}\right.$$
+
+  $`\displaystyle\left\{\begin{array}{l}b_r = n_l + n_r \\ r = \left\lceil n / b_r \right\rceil \\ i = n - b_r \cdot (r - 1) \end{array}\right.`$
+
     där $r$ är stolens radnummer och $i$ är stolens index i raden. Detta innebär att man kommer åt stol nr $n$ med uttrycket `Carriage.seats[r - 1][0][i - 1]` om den befinner sig på vänster sida om gånger, dvs $i \leq n_l$ annars med uttrycker `Carriage.seats[r - 1][1][i - 1 - n_l]`.
 - `get_seat_name(passenger_name: str) -> Seat` - Returnerar den stol med den angivna passageraren. Ger `ValueError` om fler än en stol med samma namn finns. Ger `KeyError` om passageraren inte kan hittas.
 - `book_passenger(name: str, seat_num: int) -> None` - Bokar in passageraren i en specifik stol. Ger `IndexError` ifall ogiltigt stolsnummer anges. Ger `ValueError` ifall stolen redan är bokad.
