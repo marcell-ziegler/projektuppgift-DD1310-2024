@@ -7,9 +7,24 @@ from typing import Optional
 
 
 class Seat:
+    """A seat in a Carriage with a number and an optional passenger name.
+
+    Attributes:
+        number (int): The seat number
+        passenger_name (str): The name of the passenger in the seat (default: "")
+
+    Instance methods:
+        is_booked() -> bool: Return if the seat is booked
+    """
+
     def __init__(self, number: int, passenger_name: str = ""):
+        """Make a new seat with the specified number and if applicable the passenger name (default: "")."""
         self.number = number
         self.passenger_name = passenger_name
+
+    def is_booked(self) -> bool:
+        """Return True if there is a passenger in the seat, else False."""
+        return self.passenger_name.strip() != ""
 
     def __repr__(self):
         return str(self.number)
@@ -25,9 +40,21 @@ class Carriage:
         seats (list[tuple[list[Seat], list[Seat]]]): A list of tuples where each tuple contains a list of left and right seats in a row
         num_left_seats (int): The number of seats on the left side of the carriage
         num_right_seats (int): The number of seats on the right side of the carriage
+
+    Instance methods:
+        get_seat_num(seat_num: int) -> Seat: Return the seat object for the given seat number in the carriage
+        get_seat_name(passenger_name: str) -> Seat: Return the seat object for the given passenger name in the carriage
+        book_passenger(name: str, seat_num: int) -> None: Books a passenger into the specified seat number
     """  # noqa pylint: disable=line-too-long
 
     def __init__(self, seating_configuration: str, num_rows: int, carriage_num: int):
+        """Create a new empty carriage with the specified seating configuration.
+
+        Args:
+            seating_configuration (str): seating_configuration in the format 'x+y' where 0 <= x,y <= 9 for x,y: int
+            num_rows (int): The number of rows in the carriage
+            carriage_num (int): The unique carriage number
+        """  # noqa
 
         self.number = carriage_num
         self.seating_configuration = seating_configuration
@@ -149,7 +176,7 @@ class Carriage:
         except IndexError as e:
             raise ValueError(f"Invalid seat number {seat_num}") from e
 
-        if seat.passenger_name:
+        if seat.is_booked():
             raise ValueError(f"Seat {seat_num} is already booked")
 
         seat.passenger_name = name
