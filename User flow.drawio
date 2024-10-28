@@ -1,133 +1,150 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.0.0" version="24.7.16">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0" version="24.8.3">
   <diagram name="Page-1" id="-FVrkKvMY7_zgoq0LRrc">
-    <mxGraphModel dx="3080" dy="2820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1589" dy="2163" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="yoMzTV9leq5T_DlvsGWp-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="yoMzTV9leq5T_DlvsGWp-1" target="yoMzTV9leq5T_DlvsGWp-2" edge="1">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="yoMzTV9leq5T_DlvsGWp-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="yoMzTV9leq5T_DlvsGWp-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="850" y="-30" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-6" value="Inga befintliga bokningar finns" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="yoMzTV9leq5T_DlvsGWp-3">
+          <mxGeometry x="0.0725" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="yoMzTV9leq5T_DlvsGWp-1" value="&lt;h1&gt;&lt;b&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;Start&lt;/font&gt;&lt;/b&gt;&lt;/h1&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
-          <mxGeometry x="354" y="10" width="120" height="60" as="geometry" />
+          <mxGeometry x="790" y="10" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="yoMzTV9leq5T_DlvsGWp-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="yoMzTV9leq5T_DlvsGWp-2" target="yoMzTV9leq5T_DlvsGWp-4" edge="1">
+        <mxCell id="NztW21wDmSa7Gelo-r1o-41" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="yoMzTV9leq5T_DlvsGWp-2" target="NztW21wDmSa7Gelo-r1o-4">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="yoMzTV9leq5T_DlvsGWp-2" value="Visa alla möjliga avgångar" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="520" y="10" width="120" height="60" as="geometry" />
+        <mxCell id="yoMzTV9leq5T_DlvsGWp-2" value="Visa alla möjliga avgångar" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=0;" parent="1" vertex="1">
+          <mxGeometry x="995" y="-150" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="yoMzTV9leq5T_DlvsGWp-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="yoMzTV9leq5T_DlvsGWp-4" target="yoMzTV9leq5T_DlvsGWp-10" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="yoMzTV9leq5T_DlvsGWp-4" value="Användaren väljer önskad avgång och antal resande" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=26;perimeterSpacing=0;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
-          <mxGeometry x="730" y="10" width="172" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="XewTAsemOJknDDQVZyrN-22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;resizable=0;" edge="1" parent="1" source="yoMzTV9leq5T_DlvsGWp-10">
+        <mxCell id="yoMzTV9leq5T_DlvsGWp-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="NztW21wDmSa7Gelo-r1o-4" target="yoMzTV9leq5T_DlvsGWp-10" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1201" y="40" as="targetPoint" />
+            <mxPoint x="769" y="-120" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="yoMzTV9leq5T_DlvsGWp-10" value="Platsdiagram med tillgängliga platser visas" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="1010" y="10" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="yoMzTV9leq5T_DlvsGWp-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="yoMzTV9leq5T_DlvsGWp-14" target="yoMzTV9leq5T_DlvsGWp-37" edge="1">
+        <mxCell id="NztW21wDmSa7Gelo-r1o-49" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="yoMzTV9leq5T_DlvsGWp-10" target="NztW21wDmSa7Gelo-r1o-48">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="yoMzTV9leq5T_DlvsGWp-39" value="Bekräftar" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=15;" parent="yoMzTV9leq5T_DlvsGWp-38" vertex="1" connectable="0">
-          <mxGeometry x="-0.035" y="1" relative="1" as="geometry">
+        <mxCell id="yoMzTV9leq5T_DlvsGWp-10" value="Platsdiagram med tillgängliga platser visas" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=0;" parent="1" vertex="1">
+          <mxGeometry x="1381" y="-150" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-4" value="Välj önskad avgång och antal resande" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=0;size=0.125;spacingLeft=20;spacingRight=20;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1165.5" y="-150" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-8" value="Tomma tåg laddas från tidtabellfilen" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.stored_data;whiteSpace=wrap;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="800" y="-90" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-10" value="Alla bokningar och tåg laddas från föregånede körningsfil" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.stored_data;whiteSpace=wrap;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="790" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="yoMzTV9leq5T_DlvsGWp-1" target="NztW21wDmSa7Gelo-r1o-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-12" value="Befintliga bokningar finns" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="NztW21wDmSa7Gelo-r1o-11">
+          <mxGeometry x="-0.1038" y="-1" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="XewTAsemOJknDDQVZyrN-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="yoMzTV9leq5T_DlvsGWp-14" target="yoMzTV9leq5T_DlvsGWp-19">
+        <mxCell id="NztW21wDmSa7Gelo-r1o-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="NztW21wDmSa7Gelo-r1o-14">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="910" y="239.99999999999977" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="NztW21wDmSa7Gelo-r1o-15">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1119.375" y="239.99999999999977" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="NztW21wDmSa7Gelo-r1o-42" target="yoMzTV9leq5T_DlvsGWp-2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="XewTAsemOJknDDQVZyrN-3" value="Mer än 1 resande" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=15;" vertex="1" connectable="0" parent="XewTAsemOJknDDQVZyrN-2">
-          <mxGeometry x="0.0811" y="-1" relative="1" as="geometry">
+        <mxCell id="NztW21wDmSa7Gelo-r1o-47" value="Boka" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=15;" vertex="1" connectable="0" parent="NztW21wDmSa7Gelo-r1o-46">
+          <mxGeometry x="-0.3923" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="XewTAsemOJknDDQVZyrN-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;resizable=0;" edge="1" parent="1" source="yoMzTV9leq5T_DlvsGWp-14" target="yoMzTV9leq5T_DlvsGWp-15">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="XewTAsemOJknDDQVZyrN-34" value="Endast 1 resande" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;fillColor=none;gradientColor=none;" vertex="1" connectable="0" parent="XewTAsemOJknDDQVZyrN-31">
-          <mxGeometry x="0.0068" y="-4" relative="1" as="geometry">
-            <mxPoint y="-4" as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="yoMzTV9leq5T_DlvsGWp-14" value="Användaren väljer en plats eller bekräftar" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
-          <mxGeometry x="1360" width="280" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="XewTAsemOJknDDQVZyrN-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;resizable=0;" edge="1" parent="1" source="yoMzTV9leq5T_DlvsGWp-15" target="XewTAsemOJknDDQVZyrN-32">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="yoMzTV9leq5T_DlvsGWp-15" value="Platsen bokas" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="1840" y="10" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="XewTAsemOJknDDQVZyrN-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;resizable=0;" edge="1" parent="1" source="yoMzTV9leq5T_DlvsGWp-22" target="XewTAsemOJknDDQVZyrN-27">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="yoMzTV9leq5T_DlvsGWp-22" value="Platsen bokas" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="1640" y="-330" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="XewTAsemOJknDDQVZyrN-29" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;resizable=0;" edge="1" parent="1" source="yoMzTV9leq5T_DlvsGWp-30" target="XewTAsemOJknDDQVZyrN-27">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="yoMzTV9leq5T_DlvsGWp-30" value="Platser bokas närmast angiven plats.&lt;br&gt;&lt;br&gt;Fokus på:&lt;div&gt;&lt;ul&gt;&lt;li&gt;Flest bredvid en annan bokad&lt;/li&gt;&lt;li&gt;Så nära varandra som möjligt&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="1940" y="-215" width="200" height="160" as="geometry" />
-        </mxCell>
-        <mxCell id="yoMzTV9leq5T_DlvsGWp-43" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="yoMzTV9leq5T_DlvsGWp-37" target="yoMzTV9leq5T_DlvsGWp-42" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="yoMzTV9leq5T_DlvsGWp-37" value="Visa bokningsbekräftelse med:&lt;div&gt;&lt;ul&gt;&lt;li&gt;Alla platser&lt;/li&gt;&lt;li&gt;Alla platstyper&lt;/li&gt;&lt;li&gt;Avgångstid&lt;/li&gt;&lt;li&gt;Tågnummer&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="1416" y="195.71000000000004" width="160" height="140" as="geometry" />
-        </mxCell>
-        <mxCell id="yoMzTV9leq5T_DlvsGWp-46" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="yoMzTV9leq5T_DlvsGWp-41" target="yoMzTV9leq5T_DlvsGWp-45" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="yoMzTV9leq5T_DlvsGWp-41" value="Skriv ut biljetter" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
-          <mxGeometry x="1840" y="225.71000000000004" width="120" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="yoMzTV9leq5T_DlvsGWp-44" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="yoMzTV9leq5T_DlvsGWp-42" target="yoMzTV9leq5T_DlvsGWp-41" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="yoMzTV9leq5T_DlvsGWp-42" value="Spara bokningsdetaljer" style="whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;" parent="1" vertex="1">
-          <mxGeometry x="1650" y="235.71000000000004" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="yoMzTV9leq5T_DlvsGWp-45" value="&lt;h1&gt;Slut&lt;/h1&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
-          <mxGeometry x="2020" y="235.71000000000004" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="XewTAsemOJknDDQVZyrN-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="yoMzTV9leq5T_DlvsGWp-19" target="yoMzTV9leq5T_DlvsGWp-22">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="XewTAsemOJknDDQVZyrN-5" value="Boka 1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=15;" vertex="1" connectable="0" parent="XewTAsemOJknDDQVZyrN-4">
-          <mxGeometry x="-0.0421" y="1" relative="1" as="geometry">
-            <mxPoint x="1" y="1" as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="XewTAsemOJknDDQVZyrN-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;resizable=0;" edge="1" parent="1" source="yoMzTV9leq5T_DlvsGWp-19" target="yoMzTV9leq5T_DlvsGWp-30">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="XewTAsemOJknDDQVZyrN-7" value="Boka fler än 1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;fillColor=none;gradientColor=none;" vertex="1" connectable="0" parent="XewTAsemOJknDDQVZyrN-6">
-          <mxGeometry x="0.0833" y="-3" relative="1" as="geometry">
-            <mxPoint x="-12" y="-3" as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="yoMzTV9leq5T_DlvsGWp-19" value="Boka alla eller endast 1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
-          <mxGeometry x="1620" y="-170" width="160" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="XewTAsemOJknDDQVZyrN-23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=15;fontColor=default;labelBackgroundColor=default;resizable=0;" edge="1" parent="1" target="yoMzTV9leq5T_DlvsGWp-14">
+        <mxCell id="NztW21wDmSa7Gelo-r1o-59" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="NztW21wDmSa7Gelo-r1o-42">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1281" y="40" as="sourcePoint" />
+            <mxPoint x="1055.0000000000002" y="209.99999999999977" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="XewTAsemOJknDDQVZyrN-26" value="&lt;h1&gt;A&lt;/h1&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;labelBackgroundColor=none;resizable=0;fillColor=#ffe6cc;strokeColor=default;" vertex="1" parent="1">
-          <mxGeometry x="1201" width="80" height="80" as="geometry" />
+        <mxCell id="NztW21wDmSa7Gelo-r1o-60" value="Avboka" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=15;" vertex="1" connectable="0" parent="NztW21wDmSa7Gelo-r1o-59">
+          <mxGeometry x="-0.1615" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="XewTAsemOJknDDQVZyrN-27" value="&lt;h1&gt;A&lt;/h1&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;labelBackgroundColor=none;resizable=0;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
-          <mxGeometry x="2000" y="-340" width="80" height="80" as="geometry" />
+        <mxCell id="NztW21wDmSa7Gelo-r1o-42" value="&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Välj:&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;ul&gt;&lt;li&gt;Boka&lt;/li&gt;&lt;li&gt;Avboka&lt;/li&gt;&lt;li&gt;Skriv ut&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=25;" vertex="1" parent="1">
+          <mxGeometry x="980" y="-20" width="150" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="XewTAsemOJknDDQVZyrN-32" value="&lt;h1&gt;A&lt;/h1&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=15;labelBackgroundColor=none;resizable=0;fillColor=#ffe6cc;strokeColor=default;" vertex="1" parent="1">
-          <mxGeometry x="2050" width="80" height="80" as="geometry" />
+        <mxCell id="NztW21wDmSa7Gelo-r1o-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.93;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="NztW21wDmSa7Gelo-r1o-8" target="NztW21wDmSa7Gelo-r1o-42">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.93;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="NztW21wDmSa7Gelo-r1o-10" target="NztW21wDmSa7Gelo-r1o-42">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="940" y="140" />
+              <mxPoint x="940" y="40" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-48" value="&lt;font style=&quot;font-size: 30px;&quot;&gt;&lt;b&gt;A&lt;/b&gt;&lt;/font&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_2;whiteSpace=wrap;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="1550" y="-160" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-57" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="NztW21wDmSa7Gelo-r1o-53" target="NztW21wDmSa7Gelo-r1o-56">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-53" value="Skriv ev. ut alla befintliga biljetter" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.display;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#666666;spacingLeft=10;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="10" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-54" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="NztW21wDmSa7Gelo-r1o-42" target="NztW21wDmSa7Gelo-r1o-53">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-55" value="Skriv ut" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=15;" vertex="1" connectable="0" parent="NztW21wDmSa7Gelo-r1o-54">
+          <mxGeometry x="-0.0454" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-56" value="&lt;h1&gt;&lt;b&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;Slut&lt;/font&gt;&lt;/b&gt;&lt;/h1&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="1440" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-63" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="NztW21wDmSa7Gelo-r1o-61" target="NztW21wDmSa7Gelo-r1o-62">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-65" value="Resenär finns" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="NztW21wDmSa7Gelo-r1o-63">
+          <mxGeometry x="-0.003" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-67" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="NztW21wDmSa7Gelo-r1o-61">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1052.5000000000002" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-61" value="Välj platsnummer" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=0;size=0.23;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="975" y="210" width="155" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-64" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="NztW21wDmSa7Gelo-r1o-62" target="NztW21wDmSa7Gelo-r1o-56">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-62" value="Ta bort resenär från platsen" style="whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;rounded=1;arcSize=0;" vertex="1" parent="1">
+          <mxGeometry x="1227.5" y="210" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-69" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="NztW21wDmSa7Gelo-r1o-68" target="NztW21wDmSa7Gelo-r1o-61">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="910" y="380" />
+              <mxPoint x="910" y="240" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NztW21wDmSa7Gelo-r1o-68" value="Felmeddelande, försök igen" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.display;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#666666;spacingLeft=10;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="1002.5" y="350" width="100" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
