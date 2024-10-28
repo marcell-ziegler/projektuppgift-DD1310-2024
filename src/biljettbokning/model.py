@@ -16,7 +16,16 @@ class Seat:
 
 
 class Carriage:
-    """Holds all seats of a carriage in the specified configuration"""
+    """Holds all seats of a carriage in the specified configuration
+
+    Attributes:
+        number (int): The carriage number
+        seating_configuration (str): The seating config as 'x+y' where 0 <= x,y <= 9 for x,y: int
+        num_rows (int): The number of rows in the carriage
+        seats (list[tuple[list[Seat], list[Seat]]]): A list of tuples where each tuple contains a list of left and right seats in a row
+        num_left_seats (int): The number of seats on the left side of the carriage
+        num_right_seats (int): The number of seats on the right side of the carriage
+    """  # noqa pylint: disable=line-too-long
 
     def __init__(self, seating_configuration: str, num_rows: int, carriage_num: int):
 
