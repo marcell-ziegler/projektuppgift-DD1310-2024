@@ -17,14 +17,14 @@ class Seat:
         is_booked() -> bool: Return if the seat is booked
     """
 
-    def __init__(self, number: int, passenger_name: str = ""):
+    def __init__(self, number: int, passenger_name: Optional[str] = None):
         """Make a new seat with the specified number and if applicable the passenger name (default: "")."""
         self.number = number
         self.passenger_name = passenger_name
 
     def is_booked(self) -> bool:
         """Return True if there is a passenger in the seat, else False."""
-        return self.passenger_name.strip() != ""
+        return bool(self.passenger_name)
 
     def __repr__(self):
         return str(self.number)
@@ -107,7 +107,17 @@ class Carriage:
         return list(itertools.chain(*itertools.chain(*self.seats)))
 
     def get_seat_num(self, seat_num: int) -> Seat:
-        """Return the seat object for the given seat number in the carriage"""
+        """Return the seat object for the given seat number in the carriage
+
+        Args:
+            seat_num (int): The seat number
+
+        Returns:
+            Seat: The seat object for the seat number
+
+        Raises:
+            IndexError: If the seat number is invalid
+        """
         if seat_num < 1 or seat_num > len(self._flat_seats):
             raise IndexError(f"Invalid seat number {seat_num}")
 
@@ -153,8 +163,7 @@ class Carriage:
 
         if len(matches) < 1:
             raise KeyError(f"No seat found for passenger {passenger_name}")
-
-        if len(matches) > 1:
+        elif len(matches) > 1:
             raise ValueError(f"Multiple seats found for passenger {passenger_name}")
 
         return matches[0]
@@ -167,14 +176,14 @@ class Carriage:
             seat_num (int): The seat number to book the passenger into
 
         Raises:
-            ValueError: If the seat number is invalid
+            IndexError: If the seat number is invalid
             ValueError: If the seat is already booked
         """
 
         try:
             seat = self.get_seat_num(seat_num)
         except IndexError as e:
-            raise ValueError(f"Invalid seat number {seat_num}") from e
+            raise IndexError(f"Invalid seat number {seat_num}") from e
 
         if seat.is_booked():
             raise ValueError(f"Seat {seat_num} is already booked")
