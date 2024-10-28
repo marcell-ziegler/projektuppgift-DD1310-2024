@@ -80,7 +80,7 @@ class TestCarriage:
             carriage.book_passenger("John Doe", 20)
 
         for i in [200, 0, -1, -300, -20]:
-            with pytest.raises(ValueError):
+            with pytest.raises(IndexError):
                 carriage.book_passenger("John Doe", i)
 
     def test_name_search(self):
