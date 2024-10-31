@@ -132,3 +132,18 @@ class App(tk.Tk)
         self.some_input = LabeledEntry(self.some_frame, "foo", bar)
         self.some_input.grid(column=0, row=0, sticky="nesw")
 ```
+# Datastrukturer
+> Jag har type-hintat de flesta attribut under rubriken [Klasser](README.md#klasser) men kommer med tanke på bedömningskriterierna sammanfatta dem här.
+## Tågvagnen
+Tågvagnens stolar representeras som en `list[tuple[list[Seat], list[Seat]]]`. Yttersta listan indexeras på tågets rader, inre listan är en tuple som innehåller stolarna till vänster respektive höger om gången på den raden. Tuple är lämpligt då denna alltid kommer innehålla exakt två element. Innersta listorna är den variabla mängden stolar på var sin sida av gången.
+
+Fördelen med denna struktur är att det finns än tydlig avskiljning mellan de olika sidorna av gången. Detta kommer att vara till nytta för rendrering i en GUI till skillnad från exempelvis `list[list[Seat]]` där sidorna inte är separerade.
+
+## Stolen
+Denna är en struct med ett heltalsnummer och en sträng som passagerarnamn
+
+## Tåget
+En lista men vagnar. Ett heltal som tågnummer, `datetime`-objekt för att avgångs-/ankomsttider samt strängar för start/destination.
+
+## Appen
+Har en lista med aktuella tåg som kan sorteras på avgångstid.
