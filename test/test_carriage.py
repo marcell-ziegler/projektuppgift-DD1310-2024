@@ -53,3 +53,10 @@ class TestCarriage:
             assert carriage.get_seat_num(i * (1 + 3) + 2) is carriage.seats[i][1][0]
             assert carriage.get_seat_num(i * (1 + 3) + 3) is carriage.seats[i][1][1]
             assert carriage.get_seat_num(i * (1 + 3) + 4) is carriage.seats[i][1][2]
+
+        carriage = Carriage("3+1", rows, 10)
+        for i in range(rows):
+            assert carriage.get_seat_num(i * (1 + 3) + 1) is carriage.seats[i][0][0]
+            assert carriage.get_seat_num(i * (1 + 3) + 2) is carriage.seats[i][0][1]
+            assert carriage.get_seat_num(i * (1 + 3) + 3) is carriage.seats[i][0][2]
+            assert carriage.get_seat_num(i * (1 + 3) + 4) is carriage.seats[i][1][0]

@@ -11,7 +11,7 @@ class Seat:
         self.passenger_name = passenger_name
 
     def __repr__(self):
-        return str(self.number)
+        return f"Seat:{self.number}:{self.passenger_name}"
 
 
 class Carriage:
@@ -104,7 +104,20 @@ class Carriage:
         return f"Carriage: {self.seating_configuration} with {self.num_rows} rows"
 
 
+class Train:
+    def __init__(self, carriages: list[Carriage] | None = None):
+        self.carriages = carriages or []
+
+    def get_seat(self, carriage_num: int, seat_num: int) -> Seat:
+        """Find the seat object for the given carriage and seat number"""
+        carriage = self.carriages[carriage_num - 1]
+        return carriage.get_seat_num(seat_num)
+
+    def book_passenger(self, name: str, carriage_num: int, seat_num: int):
+        """Book a passenger to a seat in a carriage"""
+        seat = self.get_seat(carriage_num, seat_num)
+        seat.passenger_name = name
+
+
 if __name__ == "__main__":
-    c = Carriage("1+3", 10, 1)
-    c.get_seat_num(6).passenger_name = "John Doe"
-    print(c.get_seat_name("John Doe"))
+    pass
