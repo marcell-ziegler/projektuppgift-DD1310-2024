@@ -1,15 +1,17 @@
 import itertools
-from biljettbokning.model import Carriage
 import pytest
+from biljettbokning.model import Carriage
 
 
 class TestCarriage:
     def test_create_carriage(self):
+        # pylint: disable=protected-access
         carriage = Carriage("2+2", 5, 10)
         assert carriage.number == 10
         assert carriage.num_rows == 5
-        assert carriage.left_seats == 2
-        assert carriage.right_seats == 2
+        assert carriage.num_left_seats == 2
+        assert carriage.num_right_seats == 2
+        assert len(carriage._flat_seats) == (2 + 2) * 5
         assert (
             len(list(itertools.chain(*itertools.chain(*carriage.seats)))) == (2 + 2) * 5
         )
@@ -54,9 +56,43 @@ class TestCarriage:
             assert carriage.get_seat_num(i * (1 + 3) + 3) is carriage.seats[i][1][1]
             assert carriage.get_seat_num(i * (1 + 3) + 4) is carriage.seats[i][1][2]
 
-        carriage = Carriage("3+1", rows, 10)
-        for i in range(rows):
-            assert carriage.get_seat_num(i * (1 + 3) + 1) is carriage.seats[i][0][0]
-            assert carriage.get_seat_num(i * (1 + 3) + 2) is carriage.seats[i][0][1]
-            assert carriage.get_seat_num(i * (1 + 3) + 3) is carriage.seats[i][0][2]
-            assert carriage.get_seat_num(i * (1 + 3) + 4) is carriage.seats[i][1][0]
+        for i in [200, 0, -1, -300, -20]:
+            with pytest.raises(IndexError):
+                carriage.get_seat_num(i)
+
+    def test_booking(self):
+        carriage = Carriage("2+2", 5, 10)
+
+        seat = carriage.get_seat_num(1)
+        carriage.book_passenger("John Doe", 1)
+
+        assert seat.passenger_name == "John Doe"
+
+        seat = carriage.get_seat_num(20)
+        carriage.book_passenger("Jane Doe", 20)
+
+        assert seat.passenger_name == "Jane Doe"
+
+        with pytest.raises(ValueError):
+            carriage.book_passenger("Jane Doe", 20)
+
+        with pytest.raises(ValueError):
+            carriage.book_passenger("John Doe", 20)
+
+        for i in [200, 0, -1, -300, -20]:
+            with pytest.raises(IndexError):
+                carriage.book_passenger("John Doe", i)
+
+    def test_name_search(self):
+        carriage = Carriage("2+2", 5, 10)
+        letters = "abcdfghijklmnopqrstu"
+
+        nums = list(range(1, 21))
+
+        for letter, num in zip(list(letters), list(nums)):
+            seat = carriage.get_seat_num(num)
+            seat.passenger_name = letter
+
+        for letter in letters:
+            seat = carriage.get_seat_name(letter)
+            assert seat.passenger_name == letter
