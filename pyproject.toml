@@ -10,6 +10,9 @@ requires-python = ">=3.10"
 [project.optional-dependencies]
 test = ["pytest"]
 
+[project.gui-scripts]
+biljettbokning = "biljettbokning:launch"
+
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
