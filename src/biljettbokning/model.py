@@ -241,3 +241,64 @@ class Train:
 
     def __lt__(self, other) -> bool:
         return self.departure < other.departure
+
+    def serialize(self, root_path: Optional[str]) -> None:
+        """Serializes the train to a directory named train_n where n is Train.number.
+
+        Directory structure:
+        root_path
+            - train_n
+                -train.json
+                -carriage_1.pickle
+                -carriage_2.pickle
+                -carriage_3.pickle
+                ...
+                -carriage_n.pickle
+        """
+        root = Path(root_path) if root_path else Path.cwd()
+
+        # Make a dict representing the train
+        # "carriages" is a list of paths to the carriage pickle files
+        repr_dict = {
+            "number": self.number,
+            "departure": self.departure.isoformat(),
+            "arrival": self.arrival.isoformat(),
+            "start": self.start,
+            "dest": self.dest,
+            "num_carriages": len(self.carriages),
+        }
+
+        # make a dir for this specific train
+        train_dir = root / f"train_{self.number}"
+        if train_dir.exists():
+            os.system(
+                ("rmdir /s /q " if os.name == "nt" else "rmdir -r ") + str(train_dir)
+            )
+        os.mkdir(train_dir)
+
+        # append appropriate paths and pickle carriage to appropriate file
+        for i, carriage in enumerate(self.carriages):
+            carriage_path = train_dir / f"carriage_{i}.pickle"
+
+            with open(carriage_path, "wb") as f:
+                pickle.dump(carriage, f)
+
+        # dump the dict
+        with open(train_dir / "train.json", "w", encoding="utf-8") as f:
+            json.dump(repr_dict, f)
+
+    @staticmethod
+    def from_file(directory_path: os.PathLike):
+        path = Path(directory_path)
+
+        with open(path / "train.json", "r", encoding="utf-8") as f:
+            repr_dict: dict = json.load(f)
+
+        num_carriages = repr_dict.pop("num_carriages")
+        train = Train(**repr_dict)
+
+        for i in range(num_carriages):
+            with open(path / f"carriage_{i}.pickle", "rb") as f:
+                train.add_carriage(pickle.load(f))
+
+        return train
