@@ -1,5 +1,6 @@
 """Data model for train booking system"""
 
+from datetime import datetime
 import itertools
 import re
 import math
@@ -195,8 +196,20 @@ class Carriage:
 
 
 class Train:
-    def __init__(self, name: str, carriages: Optional[list[Carriage]] = None):
+    def __init__(
+        self,
+        name: str,
+        departure: datetime,
+        arrival: datetime,
+        start: str,
+        dest: str,
+        carriages: Optional[list[Carriage]] = None,
+    ):
         self.name = name
+        self.departure = departure
+        self.arrival = arrival
+        self.start = start
+        self.dest = dest
         self.carriages = carriages if carriages is not None else []
 
     def add_carriage(self, carriage: Carriage):
@@ -225,3 +238,6 @@ class Train:
             )
 
         return search_result[0]
+
+    def __lt__(self, other) -> bool:
+        return self.departure < other.departure
