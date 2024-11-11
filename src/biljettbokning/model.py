@@ -2,6 +2,10 @@
 
 from datetime import datetime
 import itertools
+import os
+from pathlib import Path
+import json
+import pickle
 import re
 import math
 from typing import Optional
@@ -198,14 +202,14 @@ class Carriage:
 class Train:
     def __init__(
         self,
-        name: str,
+        number: str,
         departure: datetime,
         arrival: datetime,
         start: str,
         dest: str,
         carriages: Optional[list[Carriage]] = None,
     ):
-        self.name = name
+        self.number = number
         self.departure = departure
         self.arrival = arrival
         self.start = start
