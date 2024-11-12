@@ -293,6 +293,7 @@ class Train:
 
     @staticmethod
     def from_file(directory_path: os.PathLike):
+        """Load train for the specified serialization directory"""
         path = Path(directory_path)
 
         with open(path / "train.json", "r", encoding="utf-8") as f:
