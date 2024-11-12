@@ -52,16 +52,13 @@ class Carriage:
         book_passenger(name: str, seat_num: int) -> None: Books a passenger into the specified seat number
     """  # noqa pylint: disable=line-too-long
 
-    def __init__(self, seating_configuration: str, num_rows: int, carriage_num: int):
+    def __init__(self, seating_configuration: str, num_rows: int):
         """Create a new empty carriage with the specified seating configuration.
 
         Args:
             seating_configuration (str): seating_configuration in the format 'x+y' where 0 <= x,y <= 9 for x,y: int
             num_rows (int): The number of rows in the carriage
-            carriage_num (int): The unique carriage number
         """  # noqa
-
-        self.number = carriage_num
         self.seating_configuration = seating_configuration
         self.num_rows = num_rows
 
