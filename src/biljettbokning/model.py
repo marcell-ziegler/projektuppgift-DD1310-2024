@@ -214,34 +214,7 @@ class Train:
         self.arrival = arrival
         self.start = start
         self.dest = dest
-        self.carriages = carriages if carriages is not None else []
-
-    def add_carriage(self, carriage: Carriage):
-        """Add a carriage to the train."""
-        self.carriages.append(carriage)
-
-    def get_carriage_num(self, carriage_num: int) -> Carriage:
-        """Return the carriage with the specified number.
-
-        Args:
-            carriage_num (int): The carriage number
-
-        Returns:
-            Carriage: The carriage with the specified number
-
-        Raises:
-            KeyError: If no carriage is found with the specified number
-            ValueError: If multiple carriages are found with the specified
-        """
-        search_result = list(filter(lambda c: c.number == carriage_num, self.carriages))
-        if len(search_result) < 1:
-            raise KeyError(f"Carriage number {carriage_num} does not exist")
-        if len(search_result) > 1:
-            raise ValueError(
-                f"Multiple matches found for carriage with number {carriage_num}"
-            )
-
-        return search_result[0]
+        self.carriages: list[Carriage] = carriages if carriages is not None else []
 
     def __lt__(self, other) -> bool:
         if not isinstance(other, Train):
@@ -306,6 +279,6 @@ class Train:
 
         for i in range(num_carriages):
             with open(path / f"carriage_{i}.pickle", "rb") as f:
-                train.add_carriage(pickle.load(f))
+                train.carriages.append(pickle.load(f))
 
         return train
