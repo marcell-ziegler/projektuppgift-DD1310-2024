@@ -199,7 +199,7 @@ class Carriage:
 class Train:
     def __init__(
         self,
-        number: str,
+        number: int,
         departure: datetime,
         arrival: datetime,
         start: str,
