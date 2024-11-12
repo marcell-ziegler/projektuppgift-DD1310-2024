@@ -244,6 +244,8 @@ class Train:
         return search_result[0]
 
     def __lt__(self, other) -> bool:
+        if not isinstance(other, Train):
+            raise TypeError("Only supported for values of type Train.")
         return self.departure < other.departure
 
     def serialize(self, root_path: Optional[str]) -> None:
