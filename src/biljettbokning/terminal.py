@@ -1,26 +1,32 @@
+from datetime import datetime
+from math import ceil
 import os
 import sys
 from time import sleep
 from typing import NoReturn
+
+import pandas as pd
+
+from biljettbokning.model import Carriage, Train
 
 
 def clear():
     os.system("cls" if os.name == "nt" else "clear")
 
 
-def boka():
+def boka(trains):
     print("boka")
 
 
-def avboka():
+def avboka(trains):
     print("avboka")
 
 
-def skriv_biljetter():
+def skriv_biljetter(trains):
     print("skriv_biljett")
 
 
-def menu() -> NoReturn:
+def menu(trains) -> NoReturn:
     clear()
     while True:
         print(
@@ -34,13 +40,13 @@ def menu() -> NoReturn:
         match val:
             case "1" | "B":
                 clear()
-                boka()
+                boka(trains)
             case "2" | "A":
                 clear()
-                avboka()
+                avboka(trains)
             case "3" | "S":
                 clear()
-                skriv_biljetter()
+                skriv_biljetter(trains)
             case "4":
                 clear()
                 sleep(0.2)
@@ -53,4 +59,22 @@ def menu() -> NoReturn:
 
 
 if __name__ == "__main__":
-    menu()
+    trains: list[Train] = []
+    data = pd.read_excel("test/tåg.xlsx")
+
+    for i, train in data.iterrows():
+        trains.append(
+            Train(
+                train["Number"],
+                datetime.fromisoformat(train["Departure"]),
+                datetime.fromisoformat(train["Arrival"]),
+                train["Start"],
+                train["Destination"],
+                [
+                    Carriage("2+2", ceil(train["Seats"] / 4))
+                    for _ in range(train["Carriages"])
+                ],
+            )
+        )
+
+    # menu()
