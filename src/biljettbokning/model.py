@@ -263,6 +263,15 @@ class Train:
         with open(train_dir / "train.json", "w", encoding="utf-8") as f:
             json.dump(repr_dict, f)
 
+    def __repr__(self):
+        return f"""Train ({self.number}):
+            \tDeparture: {self.departure}
+            \tArrival: {self.arrival}
+            \tStart: {self.start}
+            \tDestination: {self.dest}
+            \tNumber of carriages: {len(self.carriages)}
+            \tSeats per carriage: {len(self.carriages[0]._flat_seats)}"""
+
     @staticmethod
     def from_file(directory_path: os.PathLike):
         """Load train for the specified serialization directory"""
