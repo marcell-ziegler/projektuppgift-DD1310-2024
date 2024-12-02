@@ -2,7 +2,7 @@ from datetime import datetime
 import pickle
 import sys
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox, font
 
 from biljettbokning.model import Carriage, Train
 
@@ -47,6 +47,8 @@ class App(tk.Tk):
         ]
         self.trains.sort()
 
+        self.trains[0].book_passenger(0, 15, "John Doe")
+
         self.menu_frame = MenuFrame(self)
         self.menu_frame.pack(expand=True, fill="both")
 
@@ -56,7 +58,14 @@ class App(tk.Tk):
         return trains
 
     def book(self):
-        pass
+        """Make the booking popup."""
+        try:
+            BookingPopup(self.menu_frame.get_train(), self)
+        except Exception:
+            # Visar felmedellande ifall inget tåg är valt
+            messagebox.showerror(
+                "Ogiltigt tåg!", "Inget tåg är valt i menyn, välj ett tåg!"
+            )
 
     def unbook(self):
         pass
@@ -67,6 +76,37 @@ class App(tk.Tk):
     def exit(self):
         self.destroy()
         sys.exit(0)
+
+
+class BookingPopup(tk.Toplevel):
+    def __init__(self, train: Train, master, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
+
+        # Make rows and columns
+        self.columnconfigure(0, weight=1)
+        for i in range(5):
+            self.rowconfigure(i, weight=1)
+
+        # Make the title
+        self.title = ttk.Label(
+            self,
+            text=f"Boka tåg {train.number}",
+            font=("TkTextFont", 24),
+            anchor="center",
+            justify="center",
+        )
+        self.title.grid(column=0, row=0, sticky="nesw", pady=15)
+
+        # Create the train visualisation
+        mono_font = font.nametofont("TkFixedFont")
+        mono_font.config(size=10)
+        self.vis_label = ttk.Label(
+            self,
+            text=train.terminal_repr(),
+            anchor="center",
+            font=mono_font,
+        )
+        self.vis_label.grid(column=0, row=1, sticky="ew")
 
 
 class MenuFrame(ttk.Frame):
@@ -107,11 +147,30 @@ class MenuFrame(ttk.Frame):
         for i, label in enumerate(self.train_labels):
             label.grid(column=0, row=(i + 1), sticky="nsw", padx=(50, 0))
 
-        # make the combobox
+        # Make frame for Combobox
+        self.select_frame = ttk.Frame(self)
+        self.select_frame.rowconfigure(0, weight=1)
+        self.select_frame.columnconfigure(0, weight=1)
+        self.select_frame.columnconfigure(1, weight=1)
+
+        self.select_frame_label = ttk.Label(
+            self.select_frame, text="Välj ett tåg ur listan:", justify="right"
+        )
+        self.select_frame_label.grid(column=0, row=0, sticky="e")
+
+        # Make the combobox
         options = [str(i + 1) for i in range(len(self.train_labels))]
-        self.train_picker = ttk.Combobox(self, values=options)
+        self.selected_train = tk.StringVar()
+        self.train_picker = ttk.Combobox(
+            self.select_frame, values=options, textvariable=self.selected_train
+        )
         self.rowconfigure((len(self.train_labels) + 1), weight=1)
-        self.train_picker.grid(column=0, row=(len(self.train_labels) + 1), pady=10)
+        self.train_picker.grid(column=1, row=0, sticky="w")
+
+        # Add box and label
+        self.select_frame.grid(
+            column=0, row=(len(self.train_labels) + 1), sticky="nesw", pady=10
+        )
 
         # Create frame for buttons
         self.button_frame = ttk.Frame(self)
@@ -141,6 +200,9 @@ class MenuFrame(ttk.Frame):
 
         # Add the button frame to the app
         self.button_frame.grid(column=0, row=(len(self.train_labels) + 2))
+
+    def get_train(self) -> Train:
+        return self.master.trains[int(self.selected_train.get()) - 1]  # type: ignore
 
 
 if __name__ == "__main__":

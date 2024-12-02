@@ -32,7 +32,7 @@ class Seat:
         return bool(self.passenger_name)
 
     def __repr__(self):
-        return str(self.number) if not self.is_booked() else "*"
+        return str(self.number) if not self.is_booked() else "*" * len(str(self.number))
 
 
 class Carriage:
@@ -215,6 +215,12 @@ class Train:
         self.dest = dest
         self.carriages: list[Carriage] = carriages if carriages is not None else []
 
+    def book_passenger(
+        self, carriage: int, seat_number: int, passenger_name: str
+    ) -> None:
+        car = self.carriages[carriage - 1]
+        car.book_passenger(passenger_name, seat_number)
+
     def __lt__(self, other) -> bool:
         if not isinstance(other, Train):
             raise TypeError("Only supported for values of type Train.")
@@ -302,7 +308,7 @@ class Train:
         # Repeat generation for each car
         for car in self.carriages:
             # Top dashed line
-            car_str = ["-" * (car.num_rows * 3 + 3)]
+            car_str = []
             # add all seats to the left
             for col in range(car.num_left_seats):
                 col_str = "| "
@@ -321,7 +327,9 @@ class Train:
                     col_str += f"{car.seats[row][1][col]}{" " if car.seats[row][1][col].number < 10 else ""} "
                 col_str += "|"
                 car_str.append(col_str)
-            car_str.append("-" * (car.num_rows * 3 + 3))
+
+            car_str.append("-" * (len(car_str[0])))
+            car_str = ["-" * (len(car_str[0]))] + car_str
             cars.append(car_str)
 
         result_str_lines = []
