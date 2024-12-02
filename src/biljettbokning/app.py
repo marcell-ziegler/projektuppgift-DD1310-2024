@@ -4,6 +4,8 @@ import sys
 import tkinter as tk
 from tkinter import ttk, messagebox, font
 
+import comm
+
 from biljettbokning.model import Carriage, Train
 
 
@@ -26,7 +28,7 @@ class App(tk.Tk):
                 datetime(2024, 12, 3, 18, 30),
                 "Stockholm C",
                 "Göteborg",
-                carriages=[Carriage("2+2", 10)],
+                carriages=[Carriage("3+2", 10), Carriage("3+2", 15)],
             ),
             Train(
                 35,
@@ -107,6 +109,60 @@ class BookingPopup(tk.Toplevel):
             font=mono_font,
         )
         self.vis_label.grid(column=0, row=1, sticky="ew")
+
+        # Frame for picking seat
+        self.select_frame = ttk.Frame(self)
+        self.select_frame.rowconfigure(0, weight=1)
+        self.select_frame.rowconfigure(1, weight=1)
+        self.select_frame.rowconfigure(2, weight=1)
+        self.select_frame.columnconfigure(0, weight=1)
+        self.select_frame.columnconfigure(1, weight=1)
+
+        # Seat amount picker
+        self.ticket_amount_label = ttk.Label(
+            self.select_frame, text="Välj antal passagerare:", justify="right"
+        )
+        self.ticket_amount_label.grid(column=0, row=0, sticky="e")
+
+        self.num_seats = tk.StringVar()
+        self.ticket_amount_entry = ttk.Entry(
+            self.select_frame, textvariable=self.num_seats
+        )
+        self.ticket_amount_entry.grid(column=1, row=0, sticky="w")
+
+        # Starting seat number picker
+        self.starting_seat_label = ttk.Label(
+            self.select_frame,
+            text="Välj stolsnummer (att börja ifrån):",
+            justify="right",
+        )
+        self.starting_seat_label.grid(column=0, row=1, sticky="e")
+
+        self.starting_seat = tk.StringVar()
+        self.starting_seat_entry = ttk.Entry(
+            self.select_frame, textvariable=self.starting_seat
+        )
+        self.starting_seat_entry.grid(column=1, row=1, sticky="w")
+
+        # Book button
+        self.book_passenger_button = ttk.Button(
+            self.select_frame, text="Boka", command=self.book_passenger
+        )
+        self.book_passenger_button.grid(
+            column=0, row=2, sticky="e", padx=5, pady=(10, 0)
+        )
+
+        # Finish button
+        self.finish_button = ttk.Button(
+            self.select_frame, text="Tillbaka", command=self.destroy
+        )
+        self.finish_button.grid(column=1, row=2, sticky="w", padx=5, pady=(10, 0))
+
+        # Add frame to grid
+        self.select_frame.grid(column=0, row=2, sticky="nesw", pady=10)
+
+    def book_passenger(self):
+        pass
 
 
 class MenuFrame(ttk.Frame):
