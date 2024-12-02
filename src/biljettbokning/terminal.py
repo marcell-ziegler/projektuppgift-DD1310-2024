@@ -1,18 +1,17 @@
+from datetime import datetime
+from math import ceil
 import os
 import sys
 from time import sleep
 from typing import NoReturn
 
-from biljettbokning.model import Train
+import pandas as pd
+
+from biljettbokning.model import Carriage, Train
 
 
-class Terminal:
-    def __init__(self, trains: list[Train]):
-        self.trains = trains
-
-    @staticmethod
-    def clear():
-        os.system("cls" if os.name == "nt" else "clear")
+def clear():
+    os.system("cls" if os.name == "nt" else "clear")
 
     def boka(self):
         print("Välj tåg:")
