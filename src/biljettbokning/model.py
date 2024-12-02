@@ -265,6 +265,9 @@ class Train:
         with open(train_dir / "train.json", "w", encoding="utf-8") as f:
             json.dump(repr_dict, f)
 
+    def menu_text(self) -> str:
+        return f"Tåg {self.number}: {self.departure.isoformat().split("T")[1][:5]} {self.start}  ->  {self.arrival.isoformat().split("T")[1][:5]} {self.dest}"  # noqa
+
     def __repr__(self):
         return f"""Train ({self.number}):
             \tDeparture: {self.departure}
