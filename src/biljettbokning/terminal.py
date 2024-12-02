@@ -3,54 +3,62 @@ import sys
 from time import sleep
 from typing import NoReturn
 
-
-def clear():
-    os.system("cls" if os.name == "nt" else "clear")
+from biljettbokning.model import Train
 
 
-def boka():
-    print("boka")
+class Terminal:
+    def __init__(self, trains: list[Train]):
+        self.trains = trains
 
+    @staticmethod
+    def clear():
+        os.system("cls" if os.name == "nt" else "clear")
 
-def avboka():
-    print("avboka")
+    def boka(self):
+        print("Välj tåg:")
+        for i, train in enumerate(self.trains):
+            print(f"{i+1}. Tåg {train.number}: {train.start} -> {train.dest}")
+        choice = int(input("Val>"))
+        selected = self.trains[choice - 1]
+        print(selected.terminal_repr())
+        input()
+        return
 
+    def avboka(self):
+        print("avboka")
 
-def skriv_biljetter():
-    print("skriv_biljett")
+    def skriv_biljetter(self):
+        print("skriv_biljett")
 
-
-def menu() -> NoReturn:
-    clear()
-    while True:
-        print(
-            """Gör ett val:
-            1. (B)oka
-            2. (A)vboka
-            3. (S)kriv biljetter
-            4. Avsluta"""
-        )
-        val = input("Val>").upper()
-        match val:
-            case "1" | "B":
-                clear()
-                boka()
-            case "2" | "A":
-                clear()
-                avboka()
-            case "3" | "S":
-                clear()
-                skriv_biljetter()
-            case "4":
-                clear()
-                sleep(0.2)
-                sys.exit(0)
-            case _:
-                clear()
-                print("Ogiltigt val, försök igen!")
-                sleep(0.8)
-                continue
+    def menu(self) -> NoReturn:
+        self.clear()
+        while True:
+            print(
+                """Gör ett val:
+                1. (B)oka
+                2. (A)vboka
+                3. (S)kriv biljetter
+                4. Avsluta"""
+            )
+            val = input("Val>").upper()
+            self.clear()
+            match val:
+                case "1" | "B":
+                    self.boka()
+                case "2" | "A":
+                    self.avboka()
+                case "3" | "S":
+                    self.skriv_biljetter()
+                case "4":
+                    sleep(0.2)
+                    sys.exit(0)
+                case _:
+                    print("Ogiltigt val, försök igen!")
+                    sleep(0.8)
+                    continue
 
 
 if __name__ == "__main__":
-    menu()
+    t = Train.from_file("./trains/train_1")
+    term = Terminal([t])
+    term.menu()

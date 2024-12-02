@@ -32,7 +32,7 @@ class Seat:
         return bool(self.passenger_name)
 
     def __repr__(self):
-        return f"Seat:{self.number}:{self.passenger_name}"
+        return str(self.number) if not self.is_booked() else "*"
 
 
 class Carriage:
@@ -67,6 +67,8 @@ class Carriage:
         self.num_left_seats, self.num_right_seats = (
             int(val) for val in seating_configuration.split("+")
         )
+
+        self.total_seats = self.num_left_seats + self.num_right_seats
 
         # Populate the seats list with seat objects in ascending order
         self.seats: list[tuple[list[Seat], list[Seat]]] = []
@@ -124,7 +126,7 @@ class Carriage:
             raise IndexError(f"Invalid seat number {seat_num}")
 
         # Total row width
-        row_width = self.num_left_seats + self.num_right_seats
+        row_width = self.total_seats
 
         # Get row by rounding up to the nearest integer row based on the index
         row = math.ceil(seat_num / row_width)
@@ -264,7 +266,7 @@ class Train:
             json.dump(repr_dict, f)
 
     @staticmethod
-    def from_file(directory_path: os.PathLike):
+    def from_file(directory_path: str):
         """Load train for the specified serialization directory"""
         path = Path(directory_path)
 
@@ -279,3 +281,46 @@ class Train:
                 train.carriages.append(pickle.load(f))
 
         return train
+
+    def terminal_repr(self) -> str:
+        # Dim 0: each car
+        # Dim 1: lines in the cars repr
+        cars: list[list[str]] = []
+
+        # Repeat generation for each car
+        for car in self.carriages:
+            # Top dashed line
+            car_str = ["-" * (car.num_rows * 3 + 3)]
+            # add all seats to the left
+            for col in range(car.num_left_seats):
+                col_str = "| "
+                for row in range(car.num_rows):
+                    col_str += f"{car.seats[row][0][col]}{" " if car.seats[row][0][col].number < 10 else ""} "
+                col_str += "|"
+                car_str.append(col_str)
+
+            # Middle divider
+            car_str.append("|" + " " * (len(car_str[0]) - 2) + "|")
+
+            # Repeat for right seats
+            for col in range(car.num_right_seats):
+                col_str = "| "
+                for row in range(car.num_rows):
+                    col_str += f"{car.seats[row][1][col]}{" " if car.seats[row][1][col].number < 10 else ""} "
+                col_str += "|"
+                car_str.append(col_str)
+            car_str.append("-" * (car.num_rows * 3 + 3))
+            cars.append(car_str)
+
+        result_str_lines = []
+        for col in range(len(cars[0])):
+            line = ""
+            for car in cars:
+                line += car[col] + "  "
+            result_str_lines.append(line)
+
+        result_str = ""
+        for line in result_str_lines:
+            result_str += line + "\n"
+
+        return result_str
