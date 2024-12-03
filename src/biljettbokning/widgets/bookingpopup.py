@@ -251,6 +251,7 @@ class PassengerFrame(ttk.Frame):
         self.passenger_to_be_added = tk.StringVar()
         self.add_entry = ttk.Entry(self, textvariable=self.passenger_to_be_added)
         self.add_entry.grid(column=0, row=1, sticky="e", padx=5, pady=2)
+        self.add_entry.bind("<Return>", lambda event: self.add_passenger())
 
         # add passenger-addition button
         self.add_button = ttk.Button(
@@ -271,6 +272,7 @@ class PassengerFrame(ttk.Frame):
         if passenger_name:
             self.listbox.insert(tk.END, passenger_name)
             self.listbox.event_generate("<Configure>")
+            self.passenger_to_be_added.set("")
 
     def remove_passenger(self):
         index = self.listbox.curselection()[0]

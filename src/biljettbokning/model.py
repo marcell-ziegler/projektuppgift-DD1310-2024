@@ -301,7 +301,7 @@ class Train:
             raise TypeError("Only supported for values of type Train.")
         return self.departure < other.departure
 
-    def serialize(self, root_path: Optional[str]) -> None:
+    def serialize(self, root_path: str) -> None:
         """Serializes the train to a directory named train_n where n is Train.number.
 
         Directory structure:
@@ -314,7 +314,11 @@ class Train:
                 ...
                 -carriage_n.pickle
         """
-        root = Path(root_path) if root_path else Path.cwd()
+        root = Path(root_path)
+
+        if root == Path.cwd():
+            # In case the user cancels save
+            return
 
         # Make a dict representing the train
         # "carriages" is a list of paths to the carriage pickle files
@@ -347,16 +351,18 @@ class Train:
             json.dump(repr_dict, f)
 
     def menu_text(self) -> str:
-        return f"Tåg {self.number}: {self.departure.isoformat().split("T")[1][:5]} {self.start}  ->  {self.arrival.isoformat().split("T")[1][:5]} {self.dest}"  # noqa
+        return f"Tåg {self.number}: {self.departure.time().isoformat("minutes")} {self.start}  ->  {self.arrival.time().isoformat("minutes")} {self.dest}"  # noqa
 
     def __repr__(self):
         return f"""Train ({self.number}):
-            \tDeparture: {self.departure}
-            \tArrival: {self.arrival}
+            \tDeparture: {self.departure.isoformat()}
+            \tArrival: {self.arrival.isoformat()}
             \tStart: {self.start}
             \tDestination: {self.dest}
             \tNumber of carriages: {len(self.carriages)}
-            \tSeats per carriage: {len(self.carriages[0]._flat_seats)}"""
+            \tSeats per carriage: {len(self.carriages[0]._flat_seats)}""".expandtabs(
+            4
+        )
 
     @staticmethod
     def random(num):

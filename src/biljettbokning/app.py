@@ -47,6 +47,7 @@ class App(tk.Tk):
         self.menu_frame = MenuFrame(self)
 
     def finish_window(self):
+        self.trains.sort()
         self.popup.grab_release()
         self.popup.destroy()
         self.deiconify()
