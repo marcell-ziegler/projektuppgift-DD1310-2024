@@ -31,6 +31,9 @@ class Seat:
         """Return True if there is a passenger in the seat, else False."""
         return bool(self.passenger_name)
 
+    def unbook(self) -> None:
+        self.passenger_name = None
+
     def __repr__(self):
         return str(self.number) if not self.is_booked() else "*" * len(str(self.number))
 
@@ -68,7 +71,7 @@ class Carriage:
             int(val) for val in seating_configuration.split("+")
         )
 
-        self.total_seats = self.num_left_seats + self.num_right_seats
+        self.total_seats_in_row = self.num_left_seats + self.num_right_seats
 
         # Populate the seats list with seat objects in ascending order
         self.seats: list[tuple[list[Seat], list[Seat]]] = []
@@ -85,6 +88,8 @@ class Carriage:
                 seat_num += 1
                 right.append(Seat(seat_num))
             self.seats.append((left, right))
+
+        self.total_seats = len(self._flat_seats)
 
     @property
     def seating_configuration(self) -> str:
@@ -110,6 +115,12 @@ class Carriage:
         """Return a flat list of all seats in the carriage"""
         return list(itertools.chain(*itertools.chain(*self.seats)))
 
+    @property
+    def remaining_seats(self) -> int:
+        return self.total_seats - len(
+            list(filter(lambda s: s.is_booked(), self._flat_seats))
+        )
+
     def get_seat_num(self, seat_num: int) -> Seat:
         """Return the seat object for the given seat number in the carriage
 
@@ -126,7 +137,7 @@ class Carriage:
             raise IndexError(f"Invalid seat number {seat_num}")
 
         # Total row width
-        row_width = self.total_seats
+        row_width = self.total_seats_in_row
 
         # Get row by rounding up to the nearest integer row based on the index
         row = math.ceil(seat_num / row_width)
@@ -218,8 +229,48 @@ class Train:
     def book_passenger(
         self, carriage: int, seat_number: int, passenger_name: str
     ) -> None:
-        car = self.carriages[carriage - 1]
+        """Book a passenger into the specified seat in the specified carriage.
+
+        Args:
+            carriage (int): The carriage index the seat is in
+            seat_number (int): The seat number within the carriage
+            passenger_name (str): The name of the passenger
+
+        Raises:
+            ValueError: If seat is already booked
+            IndexError: If carriage number and/or seat number is invalid
+        """
+
+        car = self.carriages[carriage]
         car.book_passenger(passenger_name, seat_number)
+
+    def unbook_passenger(self, carriage_num: int, name: str) -> None:
+        """Unbook a passenger with the specified name from the specified carriage.
+
+        Args:
+            carriage (int): Carriage index to be unbooked from
+            name (str): Name of passenger to be unbooked
+
+        Raises:
+            KeyError: If no seat is found for the specified passenger
+            ValueError: If multiple matches found
+        """
+
+        seat = self.carriages[carriage_num].get_seat_name(name)
+        seat.unbook()
+
+    def unbook_seat(self, carriage_num: int, seat_num: int) -> None:
+        """Unbook the specified seat in the given carriage.
+
+        Args:
+            carriage_num (int): Number of the carriage
+            seat_num (int): Seat to be unbooked
+
+        Raises:
+            IndexError: If seat does not exist
+        """
+
+        self.carriages[carriage_num].get_seat_num(seat_num).unbook()
 
     def __lt__(self, other) -> bool:
         if not isinstance(other, Train):
@@ -306,7 +357,7 @@ class Train:
         cars: list[list[str]] = []
 
         # Repeat generation for each car
-        for car in self.carriages:
+        for car_num, car in enumerate(self.carriages):
             # Top dashed line
             car_str = []
             # add all seats to the left
@@ -328,8 +379,15 @@ class Train:
                 col_str += "|"
                 car_str.append(col_str)
 
+            # Bottom line
             car_str.append("-" * (len(car_str[0])))
-            car_str = ["-" * (len(car_str[0]))] + car_str
+
+            # Make a row of spaces with carriage number in it
+            number_row = (" " * (len(car_str[0]) // 2 - 2)) + str(car_num + 1) + "."
+            number_row += " " * (len(car_str[0]) - len(number_row))
+
+            # add the number row and the top line to the list
+            car_str = [number_row, "-" * (len(car_str[0]))] + car_str
             cars.append(car_str)
 
         result_str_lines = []
