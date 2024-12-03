@@ -1,3 +1,5 @@
+from collections import defaultdict
+from datetime import date
 from tkinter import ttk
 import tkinter as tk
 from biljettbokning.model import Train
@@ -21,25 +23,37 @@ class MenuFrame(ttk.Frame):
         )
         self.title.grid(column=0, row=0, sticky="nesw", pady=15)
 
-        # Load all text representations of the trains in the app
-        train_texts = [t.menu_text() for t in self.master.trains]  # type: ignore
-
-        # Add configured rows for all trains
-        for i in range(len(train_texts)):
-            self.rowconfigure(i + 1, weight=3)
+        trains_by_date: dict[date, list[str]] = defaultdict(list)
+        for train in self.master.trains:  # type: ignore
+            train: Train
+            trains_by_date[train.departure.date()].append(train.menu_text())
 
         # Make label widgets for all trains
         self.train_labels: list[ttk.Label] = []
-        for i, train in enumerate(train_texts):
-            self.train_labels.append(
-                ttk.Label(
-                    self, text=f"{i+1}.  {train}", justify="left", anchor="center"
-                )
+        i = 1
+        train_index = 1
+        for cur_date in sorted(list(trains_by_date.keys())):
+            # Append a date label
+            label = ttk.Label(
+                self, text=cur_date.isoformat(), anchor="center", justify="center"
             )
+            self.rowconfigure(i, weight=2)
+            label.grid(column=0, row=i, sticky="nsew", padx=5, pady=(15, 5))
+            self.train_labels.append(label)
+            i += 1
+            for train_str in trains_by_date[cur_date]:
+                label = ttk.Label(
+                    self,
+                    text=f"{train_index}. " + train_str,
+                    anchor="center",
+                    justify="center",
+                )
+                self.rowconfigure(i, weight=1)
+                label.grid(column=0, row=i, sticky="nsew", padx=5, pady=2)
+                self.train_labels.append(label)
 
-        # load labels into app
-        for i, label in enumerate(self.train_labels):
-            label.grid(column=0, row=(i + 1), sticky="nsw", padx=(50, 0))
+                i += 1
+                train_index += 1
 
         # Make frame for Combobox
         self.select_frame = ttk.Frame(self)
@@ -53,7 +67,7 @@ class MenuFrame(ttk.Frame):
         self.select_frame_label.grid(column=0, row=0, sticky="e")
 
         # Make the combobox
-        options = [str(i + 1) for i in range(len(self.train_labels))]
+        options = list([str(i) for i in range(1, train_index)])
         self.selected_train = tk.StringVar()
         self.train_picker = ttk.Combobox(
             self.select_frame, values=options, textvariable=self.selected_train

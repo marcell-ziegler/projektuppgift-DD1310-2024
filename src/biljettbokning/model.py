@@ -1,11 +1,12 @@
 """Data model for train booking system"""
 
-from datetime import datetime
+from datetime import datetime, timedelta
 import itertools
 import os
 from pathlib import Path
 import json
 import pickle
+import random
 import re
 import math
 from typing import Optional
@@ -210,6 +211,28 @@ class Carriage:
 
 
 class Train:
+
+    DESTINATIONS = [
+        "Stockholm C",
+        "Uppsala C",
+        "Bålsta",
+        "Märsta",
+        "Knivsta",
+        "Södertälje Syd",
+        "Göteborg C",
+        "Malmö C",
+        "Skövde C",
+        "Linköping",
+        "Norrköping",
+        "Motala",
+        "Gävle C",
+        "Ljusdal",
+        "Åre",
+        "Härnösand",
+        "Kristianstad",
+        "Karstad",
+    ]
+
     def __init__(
         self,
         number: int,
@@ -254,6 +277,7 @@ class Train:
         Raises:
             KeyError: If no seat is found for the specified passenger
             ValueError: If multiple matches found
+            IndexError: If carriage num is out of range
         """
 
         seat = self.carriages[carriage_num].get_seat_name(name)
@@ -267,7 +291,7 @@ class Train:
             seat_num (int): Seat to be unbooked
 
         Raises:
-            IndexError: If seat does not exist
+            IndexError: If seat does not exist or carriage num out of range
         """
 
         self.carriages[carriage_num].get_seat_num(seat_num).unbook()
@@ -335,6 +359,25 @@ class Train:
             \tSeats per carriage: {len(self.carriages[0]._flat_seats)}"""
 
     @staticmethod
+    def random(num):
+        departure = datetime.now() + timedelta(
+            hours=random.randint(0, 72), minutes=random.randint(0, 60)
+        )
+        arrival = departure + timedelta(
+            hours=random.randint(1, 5), minutes=random.randint(0, 60)
+        )
+
+        start_dest = random.sample(Train.DESTINATIONS, 2)
+
+        carriages: list[Carriage] = []
+        config = random.choice(["2+2", "3+2", "2+3", "3+3"])
+
+        for _ in range(random.randint(3, 5)):
+            carriages.append(Carriage(config, random.randint(7, 13)))
+
+        return Train(num, departure, arrival, start_dest[0], start_dest[1], carriages)
+
+    @staticmethod
     def from_file(directory_path: str):
         """Load train for the specified serialization directory"""
         path = Path(directory_path)
@@ -343,6 +386,8 @@ class Train:
             repr_dict: dict = json.load(f)
 
         num_carriages = repr_dict.pop("num_carriages")
+        repr_dict["departure"] = datetime.fromisoformat(repr_dict["departure"])
+        repr_dict["arrival"] = datetime.fromisoformat(repr_dict["arrival"])
         train = Train(**repr_dict)
 
         for i in range(num_carriages):
@@ -402,3 +447,136 @@ class Train:
             result_str += line + "\n"
 
         return result_str
+
+
+class Booking:
+    """A place ticket booking abstraction for printing purposes."""
+
+    def __init__(self, name: str, seat_num: int, carriage_num: int, train: Train):
+        self.name = name
+        self.seat = seat_num
+        self.carriage = carriage_num
+        self.train = train
+
+    def __str__(self):
+        lines = [
+            "Platsbiljett",
+            f"Tåg {self.train.number}",
+            "",
+            f"den {self.train.departure.date().isoformat()}",
+            "",
+            f"{self.train.departure.time().isoformat("minutes")} {self.train.start}",
+            "|",
+            "|",
+            "v",
+            f"{self.train.arrival.time().isoformat("minutes")} {self.train.dest}",
+            "",
+            f"{self.name}",
+            f"Plats {self.seat}, vagn {self.carriage}",
+            "",
+            r"                   =%%%%%*   %%%                 ",
+            r"                 :%%#        %%%                 ",
+            r"                 +%%%.       %%%                 ",
+            r"                  -%%%%%%-   %%%                 ",
+            r"                      +%%%#  %%%                 ",
+            r"                       =%%+  %%%                 ",
+            r"                  %%%%%%%:  #%%=                 ",
+            r"                          :+=-                   ",
+            r"  :%%%%%%%%%%%%%%#=            *%%%%%%%%%%%%%%%  ",
+            r"    :++++++++**#%%%%.        #%%%%#**++++++++    ",
+            r"                 .%%%        %%*                 ",
+            r"       %%%%%%%%%:  *%       -%   #%%%%%%%%:      ",
+            r"         -===#%%%*  :        .  %%%%+===:        ",
+            r"              =%%%#           :%%%%              ",
+            r"               .%%%%%+     .#%%%%#               ",
+            r"                 .%%%%%%%%%%%%%#                 ",
+            r"                     -*###**.                    ",
+        ]
+
+        max_length = max(len(s) for s in lines)
+
+        for i, line in enumerate(lines):
+            first_half = " " * ((max_length - len(line)) // 2) + line
+            lines[i] = first_half + " " * (max_length - len(first_half))
+
+        return "\n".join(lines)
+
+    def __eq__(self, other):
+        """Check equality with other Booking for removal purposes"""
+        if not isinstance(other, Booking):
+            return False
+
+        return all(
+            [
+                self.carriage == other.carriage,
+                self.seat == other.seat,
+                self.name == other.name,
+                self.train.number == other.train.number,
+            ]
+        )
+
+
+class Bookings:
+    """Custom list for bookings to implement removal logic."""
+
+    def __init__(self):
+        self._bookings: list[Booking] = []
+
+    def append(self, item: Booking):
+        """Add a Booking object."""
+        self._bookings.append(item)
+
+    def remove(self, train_num: int, carriage_num: int, seat_num: int):
+        """Remove a Booking object that matches the criteria.
+
+        carriage_num starts from 1
+
+        Args:
+            train_num (int): train_number
+            carriage_num (int): carriage number (starts 1)
+            seat_num (int): seat number (starts 1)
+
+        Raises:
+            ValueError: if more than one seat is found for the criteria (double booking)
+        """
+        matching_trains = list(
+            filter(lambda b: b.train.number == train_num, self._bookings)
+        )
+        matching_carriages = list(
+            filter(lambda b: b.carriage == carriage_num, matching_trains)
+        )
+        matching_seats = list(filter(lambda b: b.seat == seat_num, matching_carriages))
+
+        # Only single matches allowed with same train-carriage combo
+        if len(matching_seats) > 1:
+            raise Bookings.MultipleError()
+        if len(matching_seats) < 1:
+            raise ValueError("No bookings with the specified parameter!")
+
+        # Find and remove the single match
+        self._bookings.remove(matching_seats[0])
+
+    class MultipleError(Exception):
+        """Exception raised if there are more than one bookings with the same seat."""
+
+        def __init__(self, message="More than one booking with the same seat!"):
+            self.message = message
+            super().__init__(self.message)
+
+    def __getitem__(self, index: int) -> Booking:
+        return self._bookings[index]
+
+    def __setitem__(self, index: int, value: Booking):
+        self._bookings[index] = value
+
+    def __delitem__(self, index: int):
+        del self._bookings[index]
+
+    def __len__(self) -> int:
+        return len(self._bookings)
+
+    def __iter__(self):
+        return iter(self._bookings)
+
+    def __str__(self):
+        return "\n\n".join(str(b) for b in self._bookings)

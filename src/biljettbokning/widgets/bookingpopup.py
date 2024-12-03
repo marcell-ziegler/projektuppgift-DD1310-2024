@@ -1,6 +1,7 @@
+from copy import deepcopy
 import tkinter as tk
 from tkinter import ttk, messagebox, font
-from biljettbokning.model import Train
+from biljettbokning.model import Booking, Train
 
 
 class BookingPopup(tk.Toplevel):
@@ -74,7 +75,7 @@ class BookingPopup(tk.Toplevel):
         try:
             start_seat = int(self.starting_seat.get())
             assert 0 < start_seat <= self.train.carriages[carriage_num].total_seats
-        except ValueError:
+        except (ValueError, AssertionError):
             messagebox.showerror(
                 "Ogiltigt stolsnummer!", "Stolsnumret du har angivit är ogiltigt!"
             )
@@ -99,6 +100,14 @@ class BookingPopup(tk.Toplevel):
                 self.train.book_passenger(
                     carriage_num, start_seat, self.pax_frame.listbox.get(0)
                 )
+                self.master.bookings.append(  # type: ignore
+                    Booking(
+                        self.pax_frame.listbox.get(0),
+                        start_seat,
+                        carriage_num + 1,
+                        deepcopy(self.train),
+                    )
+                )
             except ValueError:
                 messagebox.showerror(
                     "Redan bokad plats!", "Den platsen är redan bokad av någon annan!"
@@ -120,6 +129,11 @@ class BookingPopup(tk.Toplevel):
             book_separate = False
             try:
                 self.train.book_passenger(carriage_num, start_seat + i, name)
+                self.master.bookings.append(  # type: ignore
+                    Booking(
+                        name, start_seat + i, carriage_num + 1, deepcopy(self.train)
+                    )
+                )
             except (ValueError, IndexError):
                 book_separate = messagebox.askokcancel(
                     "Inga intilliggande platser tillgängliga!",
@@ -178,6 +192,11 @@ class BookingPopup(tk.Toplevel):
                 # Try to book the passenger. If fail, try next seat in seats_to_check
                 try:
                     self.train.book_passenger(carriage_num, current_seat, name)
+                    self.master.bookings.append(  # type: ignore
+                        Booking(
+                            name, current_seat, carriage_num + 1, deepcopy(self.train)
+                        )
+                    )
                     # Set flag to stop iteration
                     is_booked = True
                 except (ValueError, IndexError):
