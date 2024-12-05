@@ -6,6 +6,8 @@ from biljettbokning.model import Train
 
 
 class MenuFrame(ttk.Frame):
+    """Contains main menu and assosciated logic."""
+
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
 
@@ -23,24 +25,32 @@ class MenuFrame(ttk.Frame):
         )
         self.title.grid(column=0, row=0, sticky="nesw", pady=15)
 
+        # Special dict where each key defaults to empty list unless already defined
         trains_by_date: dict[date, list[str]] = defaultdict(list)
+
+        # Add all trains in the app to the dict at their respective departures
         for train in self.master.trains:  # type: ignore
-            train: Train
+            train: Train  # Only for introspection purposes
             trains_by_date[train.departure.date()].append(train.menu_text())
 
         # Make label widgets for all trains
+        # Exist for garbage collection prevention
         self.train_labels: list[ttk.Label] = []
-        i = 1
+        row_index = 1
         train_index = 1
+        # Iterates over all dates (keys)
         for cur_date in sorted(list(trains_by_date.keys())):
             # Append a date label
             label = ttk.Label(
                 self, text=cur_date.isoformat(), anchor="center", justify="center"
             )
-            self.rowconfigure(i, weight=2)
-            label.grid(column=0, row=i, sticky="nsew", padx=5, pady=(15, 5))
+            # Configure its row and att to view
+            self.rowconfigure(row_index, weight=2)
+            label.grid(column=0, row=row_index, sticky="nsew", padx=5, pady=(15, 5))
+
+            #
             self.train_labels.append(label)
-            i += 1
+            row_index += 1
             for train_str in trains_by_date[cur_date]:
                 label = ttk.Label(
                     self,
@@ -48,11 +58,11 @@ class MenuFrame(ttk.Frame):
                     anchor="center",
                     justify="center",
                 )
-                self.rowconfigure(i, weight=1)
-                label.grid(column=0, row=i, sticky="nsew", padx=5, pady=2)
+                self.rowconfigure(row_index, weight=1)
+                label.grid(column=0, row=row_index, sticky="nsew", padx=5, pady=2)
                 self.train_labels.append(label)
 
-                i += 1
+                row_index += 1
                 train_index += 1
 
         # Make frame for Combobox

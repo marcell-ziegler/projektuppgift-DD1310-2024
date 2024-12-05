@@ -5,9 +5,12 @@ from biljettbokning.model import Booking, Train
 
 
 class BookingPopup(tk.Toplevel):
+    """Popup to handle booking passengers and all associated logic."""
+
     def __init__(self, train: Train, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
 
+        # Load the relevant train
         self.train = train
 
         # Make rows and columns
@@ -28,8 +31,10 @@ class BookingPopup(tk.Toplevel):
         self.title.grid(column=0, row=0, columnspan=2, sticky="nesw", pady=15)
 
         # Create the train visualisation
+        # load font
         mono_font = font.nametofont("TkFixedFont")
         mono_font.config(size=10)
+        # label for train visualisation
         self.vis_label_var = tk.StringVar(value=train.terminal_repr())
         self.vis_label = ttk.Label(
             self,
@@ -49,15 +54,12 @@ class BookingPopup(tk.Toplevel):
         # Frame for adding passengers
         self.pax_frame = PassengerFrame(self)
         self.pax_frame.grid(column=1, row=2, sticky="nesw", pady=5, padx=5)
-        self.pax_frame.listbox.bind("<Configure>", self.on_listbox_configure)
+        # Bind the configure event to the appropriate callback
+        # Gets called in passenger addition to force resize
+        self.pax_frame.listbox.bind("<Configure>", self._on_listbox_configure)
 
     def book_passengers(self):
-        """Book the passengers currently in the listbox starting at the seat given.
-
-        Raises:
-            nothing, all errors are handled with messageboxes
-
-        """
+        """Book the passengers currently in the listbox starting at the seat given."""
         # region ErrorCheck
         # Testa läs vagnnr
         try:
@@ -82,6 +84,7 @@ class BookingPopup(tk.Toplevel):
             self.focus()
             return
 
+        # If not enough seats
         if (
             self.train.carriages[carriage_num].remaining_seats
             < self.pax_frame.listbox.size()
@@ -104,6 +107,7 @@ class BookingPopup(tk.Toplevel):
                 self.train.book_passenger(
                     carriage_num, start_seat, self.pax_frame.listbox.get(0)
                 )
+                # If sucessful, load into booking stack
                 self.master.bookings.append(  # type: ignore
                     Booking(
                         self.pax_frame.listbox.get(0),
@@ -118,6 +122,7 @@ class BookingPopup(tk.Toplevel):
                 )
                 self.focus()
 
+            # Cleanup
             self.booking_complete()
             return
 
@@ -133,6 +138,7 @@ class BookingPopup(tk.Toplevel):
             book_separate = False
             try:
                 self.train.book_passenger(carriage_num, start_seat + i, name)
+                # If above sucessful, append to stack
                 self.master.bookings.append(  # type: ignore
                     Booking(
                         name, start_seat + i, carriage_num + 1, deepcopy(self.train)
@@ -166,7 +172,9 @@ class BookingPopup(tk.Toplevel):
 
         # Concatenate remaining seats in car,
         # as well as the seats from 1 to current seat
-        # In reverse order for intuitive and efficient pop
+        # In reverse order for intuitive and efficient pop.
+        # Also reverse seats with n < current to try getting
+        # as close a possible.
         seats_to_check: list[int] = list(
             reversed(
                 list(
@@ -220,6 +228,11 @@ class BookingPopup(tk.Toplevel):
             return
 
     def booking_complete(self, nopopup=False):
+        """Cleanup after a booking.
+
+        Args:
+            nopopup (bool, optional): True to supress confirmation popup. Defaults to False.
+        """
         if not nopopup:
             messagebox.showinfo("Slutfört", "Bokning slutförd!")
         # Update train visualisation
@@ -232,61 +245,78 @@ class BookingPopup(tk.Toplevel):
         self.pax_frame.listbox.delete(0, tk.END)
         self.focus()
 
-    def on_listbox_configure(self, _):
+    def _on_listbox_configure(self, _):
         """Adjust height of the listbox to current number of items."""
         self.pax_frame.listbox.config(height=self.pax_frame.listbox.size())
 
 
 class PassengerFrame(ttk.Frame):
+    """Holds a widgets related to passenger adding/removal."""
+
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
 
+        # Grid setup
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
-        self.rowconfigure(0, weight=1)
-        self.rowconfigure(1, weight=0)
+        self.rowconfigure(0, weight=0)
+        self.rowconfigure(1, weight=1)
         self.rowconfigure(2, weight=0)
+        self.rowconfigure(3, weight=0)
+
+        # Main label
+        self.main_label = ttk.Label(self, text="Tillagda passagerare:")
+        self.main_label.grid(column=0, row=0, columnspan=2, sticky="ws")
 
         # Container for all names
         self.listbox = tk.Listbox(self, height=1)
-        self.listbox.grid(column=0, row=0, columnspan=2, sticky="nesw", padx=5, pady=5)
+        self.listbox.grid(column=0, row=1, columnspan=2, sticky="nesw", padx=5, pady=5)
 
         # add passenger-addition entry
         self.passenger_to_be_added = tk.StringVar(value="Skriv namn här")
         self.add_entry = ttk.Entry(self, textvariable=self.passenger_to_be_added)
-        self.add_entry.grid(column=0, row=1, sticky="e", padx=5, pady=2)
+        self.add_entry.grid(column=0, row=2, sticky="e", padx=5, pady=2)
         self.add_entry.bind("<Return>", lambda event: self.add_passenger())
 
         # add passenger-addition button
         self.add_button = ttk.Button(
             self, text="Lägg till passagerare", command=self.add_passenger
         )
-        self.add_button.grid(column=1, row=1, sticky="w", padx=5, pady=2)
+        self.add_button.grid(column=1, row=2, sticky="w", padx=5, pady=2)
 
         # remove selected button
         self.remove_button = ttk.Button(
             self, text="Ta bort vald passagerare", command=self.remove_passenger
         )
         self.remove_button.grid(
-            column=0, row=2, columnspan=2, sticky="ew", padx=5, pady=2
+            column=0, row=3, columnspan=2, sticky="ew", padx=5, pady=2
         )
 
     def add_passenger(self):
+        """Handle adding passengers to listbox."""
         passenger_name = self.passenger_to_be_added.get()
         if passenger_name:
+            # Add passenger to box if entry not empty
             self.listbox.insert(tk.END, passenger_name)
+            # Generate the event to resize listbox
             self.listbox.event_generate("<Configure>")
+            # Empty entry
             self.passenger_to_be_added.set("")
 
     def remove_passenger(self):
+        """Handle passenger removal."""
         index = self.listbox.curselection()[0]
         self.listbox.delete(index)
+        # Force resize
         self.listbox.event_generate("<Configure>")
 
 
 class SelectFrame(ttk.Frame):
+    """Contains all inputs except passengers and associated logic."""
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
+
+        # Row setup
         self.rowconfigure(0, weight=1)
         self.rowconfigure(1, weight=1)
         self.rowconfigure(2, weight=1)

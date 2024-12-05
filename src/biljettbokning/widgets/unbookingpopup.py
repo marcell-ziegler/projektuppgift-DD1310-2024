@@ -1,13 +1,17 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, font
+from typing import Literal
 
-from biljettbokning.model import Booking, Bookings, Train
+from biljettbokning.model import Bookings, Train
 
 
 class UnbookingPopup(tk.Toplevel):
+    """Creates the popup to unbook tickets and handles all associated logic."""
+
     def __init__(self, train: Train, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
 
+        # The train to which unbookings are sent
         self.train = train
 
         # Make rows and columns
@@ -27,8 +31,11 @@ class UnbookingPopup(tk.Toplevel):
         self.title.grid(column=0, row=0, columnspan=2, sticky="nesw", pady=15)
 
         # Create the train visualisation
+        # Load and config font
         mono_font = font.nametofont("TkFixedFont")
         mono_font.config(size=10)
+
+        # Label to hold the train visualisation
         self.vis_label_var = tk.StringVar(value=train.terminal_repr())
         self.vis_label = ttk.Label(
             self,
@@ -38,10 +45,22 @@ class UnbookingPopup(tk.Toplevel):
         )
         self.vis_label.grid(column=0, row=1, columnspan=2, sticky="ew", pady=10)
 
+        # Frame for selection things to be unbooked
         self.selection_frame = SelectionFrame(self)
         self.selection_frame.grid(column=0, row=2, sticky="nesw")
 
-    def unbook_passenger(self, car_num: str, selection_type: str, to_be_unbooked: str):
+    def unbook_passenger(
+        self, car_num: str, selection_type: Literal["num", "name"], to_be_unbooked: str
+    ):
+        """Unbook the specified name/seat in the sepcified carriage
+
+        Args:
+            car_num (str): carriage number
+            selection_type (str): "num" if to_be_unbooked can become int and "name" if to_be_unbooked is str
+            to_be_unbooked (str): seat number or passenger name
+        """
+
+        # Try casting the carriage number to a nubmer and offset for list indexing
         try:
             carriage_num = int(car_num) - 1
             assert 0 <= carriage_num < len(self.train.carriages)
@@ -53,12 +72,15 @@ class UnbookingPopup(tk.Toplevel):
             self.focus()
             return
 
+        # Branch based on selection type
         if selection_type == "num":
             self.unbook_num(carriage_num, to_be_unbooked)
         else:
             self.unbook_name(carriage_num, to_be_unbooked)
 
     def unbook_num(self, carriage_num: int, seat_num_str: str):
+        """Unbook specified seat in specified carriage in the popups train."""
+        # try making a valid int
         try:
             seat_num = int(seat_num_str)
             assert 0 <= seat_num < self.train.carriages[carriage_num].total_seats
@@ -84,11 +106,12 @@ class UnbookingPopup(tk.Toplevel):
             self.focus()
             return
 
-        # Cant raise error since it works with empty seats
+        # Cant raise error since it works with empty seats: so unbook
         self.train.unbook_seat(carriage_num, seat_num)
         self.unbooking_complete()
 
     def unbook_name(self, carriage_num: int, name: str):
+        """Unbook the passenger with the specified name in the specified carriage for the popups train."""
         # Try to unbook and brach for different errors
         try:
             seat = self.train.carriages[carriage_num].get_seat_name(name)
@@ -107,6 +130,7 @@ class UnbookingPopup(tk.Toplevel):
             self.focus()
             return
 
+        # Try performing the unbooking from the main booking list
         try:
             self.master.bookings.remove(self.train.number, carriage_num + 1, seat.number)  # type: ignore
         except ValueError:
@@ -120,10 +144,16 @@ class UnbookingPopup(tk.Toplevel):
             self.focus()
             return
 
+        # After no more errors, unbook
         self.train.unbook_seat(carriage_num, seat.number)
         self.unbooking_complete()
 
     def unbooking_complete(self, nopopup=False):
+        """Cleanup after unbooking.
+
+        Args:
+            nopopup (bool, optional): True to suppress the confiormation popup. Default is False.
+        """
         if not nopopup:
             messagebox.showinfo("Slutfört", "Avbokning slutförd!")
         # Update train visualisation
@@ -135,9 +165,12 @@ class UnbookingPopup(tk.Toplevel):
 
 
 class SelectionFrame(ttk.Frame):
+    """Frame for selecting seat to be unbooked."""
+
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
 
+        # Column setup
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
         self.columnconfigure(2, weight=3)
@@ -181,6 +214,7 @@ class SelectionFrame(ttk.Frame):
         self.button_frame.columnconfigure(0, weight=1)
         self.button_frame.columnconfigure(1, weight=1)
         self.button_frame.rowconfigure(0, weight=1)
+        # calls unbook with proper arguments
         self.unbook_button = ttk.Button(
             self.button_frame,
             text="Avboka",
@@ -200,6 +234,7 @@ class SelectionFrame(ttk.Frame):
         )
 
     def on_change_type_selection(self, *_):
+        """Change multi entry label to reflect radiobutton setting."""
         if self.selection_type.get() == "num":
             self.multi_label_var.set("Stolsnummer:")
         else:

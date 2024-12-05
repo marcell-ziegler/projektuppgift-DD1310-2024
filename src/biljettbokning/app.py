@@ -126,6 +126,8 @@ class App(tk.Tk):
             messagebox.showerror(
                 "Ogiltigt tåg!", "Inget tåg är valt i menyn, välj ett tåg!"
             )
+            return
+        # If sucess book
         BookingPopup(train, self)
 
     def unbook(self):

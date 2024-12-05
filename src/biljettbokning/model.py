@@ -506,6 +506,9 @@ class Booking:
         self.train = train
 
     def __str__(self):
+        """Get representation for file or terminal printing."""
+
+        # Add all lines with only information
         lines = [
             "Platsbiljett",
             f"Tåg {self.train.number}",
@@ -540,8 +543,9 @@ class Booking:
             r"                     -*###**.                    ",
         ]
 
+        # The longest line
         max_length = max(len(s) for s in lines)
-
+        # Add spaces to center everything based on max_length
         for i, line in enumerate(lines):
             first_half = " " * ((max_length - len(line)) // 2) + line
             lines[i] = first_half + " " * (max_length - len(first_half))
@@ -549,10 +553,12 @@ class Booking:
         return "\n".join(lines)
 
     def __eq__(self, other):
-        """Check equality with other Booking for removal purposes"""
+        """Check equality with other Booking for removal purposes."""
+        # Only works for other Bookings
         if not isinstance(other, Booking):
             return False
 
+        # If all true, they must be equal
         return all(
             [
                 self.carriage == other.carriage,
@@ -564,9 +570,15 @@ class Booking:
 
 
 class Bookings:
-    """Custom list for bookings to implement removal logic."""
+    """Custom list for bookings to implement removal logic.
+
+    Instance Methods:
+        append(item: Booking): same as list.append
+        remove(train_num: int, carriage_num: int, seat_num: int): Remove booking with specified attributes, if it exists. Otherwise fail silently.
+    """  # noqa
 
     def __init__(self):
+        """Make empty booking list."""
         self._bookings: list[Booking] = []
 
     def append(self, item: Booking):
