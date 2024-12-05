@@ -92,6 +92,10 @@ class BookingPopup(tk.Toplevel):
             )
             self.focus()
             return
+
+        # If no passengerns, do nothing
+        if self.pax_frame.listbox.size() < 1:
+            return
         # endregion
 
         # With only one passenger, no checks for adjacent seats are neccesary
