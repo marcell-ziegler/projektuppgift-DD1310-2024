@@ -139,6 +139,8 @@ class App(tk.Tk):
             messagebox.showerror(
                 "Ogiltigt tåg!", "Inget tåg är valt i menyn, välj ett tåg!"
             )
+            return
+        # if sucess, make popup
         UnbookingPopup(train, self)
 
     def print(self):
@@ -182,6 +184,8 @@ class App(tk.Tk):
                 for seat in car._flat_seats:  # pylint: disable=W0212
                     if seat.is_booked():
                         with open(
+                            # Make filepath as Tåg NN - YYYY-MM-DD HH.MM - Name Namesson - seat car.txt
+                            # Last part is for guaranteed uniqueness
                             os.path.join(
                                 dir_path,
                                 f"Tåg {train.number}"
@@ -200,7 +204,7 @@ class App(tk.Tk):
                                         (
                                             seat.passenger_name
                                             if seat.passenger_name
-                                            else ""
+                                            else ""  # Only for type securty, never happens (is_booked == True) # noqa
                                         ),
                                         seat.number,
                                         car_num,
@@ -219,6 +223,8 @@ class App(tk.Tk):
         # Iterate over bookings and print
         for booking in self.bookings:
             with open(
+                # Make filepath as Tåg NN - YYYY-MM-DD HH.MM - Name Namesson - seat car.txt
+                # Last part is for guaranteed uniqueness
                 os.path.join(
                     dir_path,
                     f"Tåg {booking.train.number}"

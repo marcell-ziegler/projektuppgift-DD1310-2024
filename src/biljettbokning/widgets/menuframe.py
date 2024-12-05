@@ -48,9 +48,12 @@ class MenuFrame(ttk.Frame):
             self.rowconfigure(row_index, weight=2)
             label.grid(column=0, row=row_index, sticky="nsew", padx=5, pady=(15, 5))
 
-            #
             self.train_labels.append(label)
+
             row_index += 1
+
+            # Make a label for all trains at the current date
+            # Procedure same as above with different row weight and padding
             for train_str in trains_by_date[cur_date]:
                 label = ttk.Label(
                     self,
@@ -71,6 +74,7 @@ class MenuFrame(ttk.Frame):
         self.select_frame.columnconfigure(0, weight=1)
         self.select_frame.columnconfigure(1, weight=1)
 
+        # Combobox label
         self.select_frame_label = ttk.Label(
             self.select_frame, text="Välj ett tåg ur listan:", justify="right"
         )
@@ -120,4 +124,5 @@ class MenuFrame(ttk.Frame):
         self.button_frame.grid(column=0, row=(len(self.train_labels) + 2))
 
     def get_train(self) -> Train:
+        """Get the Train that is currently selected in the combobox."""
         return self.master.trains[int(self.selected_train.get()) - 1]  # type: ignore
