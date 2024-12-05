@@ -223,7 +223,7 @@ class BookingPopup(tk.Toplevel):
         # Clear inputs
         self.carriage_num.set("")
         self.starting_seat.set("")
-        self.pax_frame.passenger_to_be_added.set("Skriv namn här")
+        self.pax_frame.passenger_to_be_added.set("")
         # Clear passengers
         self.pax_frame.listbox.delete(0, tk.END)
         self.focus()
@@ -248,7 +248,7 @@ class PassengerFrame(ttk.Frame):
         self.listbox.grid(column=0, row=0, columnspan=2, sticky="nesw", padx=5, pady=5)
 
         # add passenger-addition entry
-        self.passenger_to_be_added = tk.StringVar()
+        self.passenger_to_be_added = tk.StringVar(value="Skriv namn här")
         self.add_entry = ttk.Entry(self, textvariable=self.passenger_to_be_added)
         self.add_entry.grid(column=0, row=1, sticky="e", padx=5, pady=2)
         self.add_entry.bind("<Return>", lambda event: self.add_passenger())

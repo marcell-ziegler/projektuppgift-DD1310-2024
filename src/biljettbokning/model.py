@@ -481,6 +481,7 @@ class Train:
             car_str = [number_row, "-" * (len(car_str[0]))] + car_str
             cars.append(car_str)
 
+        # Concatenate everything
         result_str_lines = []
         for col in range(len(cars[0])):
             line = ""
@@ -496,7 +497,7 @@ class Train:
 
 
 class Booking:
-    """A place ticket booking abstraction for printing purposes."""
+    """A seat ticket booking abstraction for printing purposes."""
 
     def __init__(self, name: str, seat_num: int, carriage_num: int, train: Train):
         self.name = name
