@@ -223,7 +223,7 @@ class BookingPopup(tk.Toplevel):
         # Clear inputs
         self.carriage_num.set("")
         self.starting_seat.set("")
-        self.pax_frame.passenger_to_be_added.set("")
+        self.pax_frame.passenger_to_be_added.set("Skriv namn här")
         # Clear passengers
         self.pax_frame.listbox.delete(0, tk.END)
         self.focus()
